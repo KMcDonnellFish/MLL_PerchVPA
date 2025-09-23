@@ -5,9 +5,9 @@
 ######################
 #paths
 base_path<-getwd() #May have to manually change this if you don't open as folder 
-dat_path<-paste0(base_path,"Data/")
-code_pat<-paste0(base_path,"Scripts/")
-out_path<-paste0(base_path,"Output/")
+dat_path<-paste0(base_path,"/Data/")
+code_pat<-paste0(base_path,"/Scripts/")
+out_path<-paste0(base_path,"/Output/")
 
 #Load data
 #Catch/Survey data
