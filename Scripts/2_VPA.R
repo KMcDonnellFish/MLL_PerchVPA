@@ -4,7 +4,7 @@
 #Set Up data----
 ######################
 #paths
-base_path<-"C:/Users/EU01237640/OneDrive - State of Minnesota - MN365/Mille_Lacs/YEP/PerchVPA/"
+base_path<-getwd() #May have to manually change this if you don't open as folder 
 dat_path<-paste0(base_path,"Data/")
 code_pat<-paste0(base_path,"Scripts/")
 out_path<-paste0(base_path,"Output/")
