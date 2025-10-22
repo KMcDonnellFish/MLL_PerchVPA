@@ -1,0 +1,200 @@
+#if !defined(_PERCH2025_)
+#  define _PERCH2025_
+
+class model_data : public ad_comm{
+  data_int fyear;
+  data_int lyearread;
+  data_int lyear;
+  data_int nages;
+  data_matrix ReadInObsKill;
+  data_matrix ReadInObsGillNet;
+  data_matrix ReadInObsOffshoreGillNet;
+  data_vector ReadInObsTrawlYOY;
+  data_vector ReadInObsTrawlOnePlus;
+  data_vector M;
+  data_vector ReadInObsEffort;
+  data_number KillSigma;
+  data_number GillNetSigma;
+  data_number OffshoreGillNetSigma;
+  data_number TrawlYOYSigma;
+  data_number TrawlOnePlusSigma;
+  data_number FSigma;
+  data_number KillSampSize;
+  data_number GillNetSampSize;
+  data_number OffshoreGillNetSampSize;
+  ~model_data();
+  model_data(int argc,char * argv[]);
+  friend class model_parameters;
+};
+
+class model_parameters : public model_data ,
+  public function_minimizer
+{
+public:
+  ~model_parameters();
+  void preliminary_calculations(void);
+  void set_runtime(void);
+  static int mc_phase(void)
+  {
+    return initial_params::mc_phase;
+  }
+  static int mceval_phase(void)
+  {
+    return initial_params::mceval_phase;
+  }
+  static int hessian_phase(void)
+  {
+    return initial_params::in_hessian_phase;
+  }
+  static int sd_phase(void)
+  {
+    return initial_params::sd_phase;
+  }
+  static int current_phase(void)
+  {
+    return initial_params::current_phase;
+  }
+  static int last_phase(void)
+  {
+    return (initial_params::current_phase
+      >=initial_params::max_number_phases);
+  }
+  static prevariable& current_feval(void)
+  {
+    return *objective_function_value::pobjfun;
+  }
+private:
+  dvariable adromb(dvariable(model_parameters::*f)(const dvariable&), double a, double b, int ns)
+  {
+    using namespace std::placeholders;
+    _func func = std::bind(f, this, _1);
+    return function_minimizer::adromb(func, a, b, ns);
+  }
+  ivector integer_control_flags;
+  dvector double_control_flags;
+  param_init_bounded_vector LogNAgeOne;
+  param_init_bounded_vector FByYear;
+  param_init_bounded_number LogEffortq;
+  param_init_bounded_vector EstKillSelectivity14;
+  param_init_bounded_number EstKillSelectivity6;
+  param_init_bounded_number EstKillGammaSelectivityShape;
+  param_init_bounded_number EstKillGammaSelectivityScale;
+  param_init_bounded_number EstKillGammaSelectivityLocation;
+  param_init_bounded_number LogGillNetq;
+  param_init_bounded_vector EstGillNetSelectivity13;
+  param_init_bounded_vector EstGillNetSelectivity56;
+  param_init_bounded_number EstGillNetSelectivityParameter1;
+  param_init_bounded_number EstGillNetSelectivityParameter2;
+  param_init_bounded_number EstGillNetSelectivityParameter3;
+  param_init_bounded_number EstGillNetSelectivityParameter4;
+  param_init_bounded_number EstGillNetGammaSelectivityShape;
+  param_init_bounded_number EstGillNetGammaSelectivityScale;
+  param_init_bounded_number EstGillNetGammaSelectivityLocation;
+  param_init_bounded_number LogOffshoreGillNetq;
+  param_init_bounded_vector EstOffshoreGillNetSelectivity13;
+  param_init_bounded_vector EstOffshoreGillNetSelectivity56;
+  param_init_bounded_number EstOffshoreGillNetSelectivityParameter1;
+  param_init_bounded_number EstOffshoreGillNetSelectivityParameter2;
+  param_init_bounded_number EstOffshoreGillNetSelectivityParameter3;
+  param_init_bounded_number EstOffshoreGillNetSelectivityParameter4;
+  param_init_bounded_number EstOffshoreGillNetGammaSelectivityShape;
+  param_init_bounded_number EstOffshoreGillNetGammaSelectivityScale;
+  param_init_bounded_number EstOffshoreGillNetGammaSelectivityLocation;
+  param_init_bounded_number LogTrawlYOYq;
+  param_init_bounded_number LogTrawlOnePlusq;
+  param_vector NAgeOne;
+  param_number Effortq;
+  param_number GillNetq;
+  param_number OffshoreGillNetq;
+  param_number TrawlYOYq;
+  param_number TrawlOnePlusq;
+  param_matrix ObsKill;
+  param_matrix ObsGillNet;
+  param_matrix ObsOffshoreGillNet;
+  param_vector ObsTrawlYOY;
+  param_vector ObsTrawlOnePlus;
+  param_vector ObsEffort;
+  param_vector ObsKillByYear;
+  param_vector ObsGillNetByYear;
+  param_vector ObsOffshoreGillNetByYear;
+  param_matrix ObsKillPropAge;
+  param_matrix ObsGillNetPropAge;
+  param_matrix ObsOffshoreGillNetPropAge;
+  param_vector PredKillByYear;
+  param_vector PredGillNetByYear;
+  param_vector PredOffshoreGillNetByYear;
+  param_matrix PredKillPropAge;
+  param_matrix PredGillNetPropAge;
+  param_matrix PredOffshoreGillNetPropAge;
+  param_vector OnePlusAbundanceByYear;
+  param_vector ThreePlusAbundanceByYear;
+  param_vector MaxAgeMinusLocation;
+  param_matrix InstantaneousF;
+  param_matrix InstantaneousZ;
+  param_matrix ExploitMatrix;
+  param_matrix PredAbundance;
+  param_number PosfunPenalty;
+  param_number FPosfunPenalty;
+  param_vector AgeVector;
+  param_matrix PredKill;
+  param_vector KillSelectivity;
+  param_matrix KillResiduals;
+  param_vector TotalKillResiduals;
+  param_number TotalKillLogLike;
+  param_number KillAgeCompLogLike;
+  param_vector EstGillNetSelectivityParameters;
+  param_vector GillNetSelectivity;
+  param_matrix PredGillNet;
+  param_vector TotalGillNetResiduals;
+  param_matrix GillNetResiduals;
+  param_number TotalGillNetLogLike;
+  param_number GillNetAgeCompLogLike;
+  param_vector EstOffshoreGillNetSelectivityParameters;
+  param_vector OffshoreGillNetSelectivity;
+  param_matrix PredOffshoreGillNet;
+  param_vector TotalOffshoreGillNetResiduals;
+  param_matrix OffshoreGillNetResiduals;
+  param_number TotalOffshoreGillNetLogLike;
+  param_number OffshoreGillNetAgeCompLogLike;
+  param_vector PredTrawlYOY;
+  param_vector TrawlYOYWeights;
+  param_vector TrawlYOYResiduals;
+  param_number TrawlYOYLogLike;
+  param_vector PredTrawlOnePlus;
+  param_vector TrawlOnePlusWeights;
+  param_vector TrawlOnePlusResiduals;
+  param_number TrawlOnePlusLogLike;
+  param_vector SemiObsF;
+  param_vector FResiduals;
+  param_number FLogLike;
+  param_vector LikelihoodLambda;
+  param_number NumberOfParameters;
+  param_number AIC;
+  param_number prior_function_value;
+  param_number likelihood_function_value;
+  objective_function_value f;
+public:
+  virtual void userfunction(void);
+  virtual void report(const dvector& gradients);
+  virtual void final_calcs(void);
+  model_parameters(int sz,int argc, char * argv[]);
+  virtual void initializationfunction(void);
+  void getAnalysisData(void);
+  void getMissingDataIndicators(void);
+  void TransformParameters(void);
+  void CalcObsAgeProportions(void);
+  void CalcPredAgeProportions(void);
+  void getKillSelectivities(void);
+  void getGillNetSelectivities(void);
+  void getOffshoreGillNetSelectivities(void);
+  void calcPredAbundance(void);
+  void calcFZExp(void);
+  void calcPredKill(void);
+  void calcPredGillNet(void);
+  void calcPredOffshoreGillNet(void);
+  void calcPredTrawl(void);
+  void calcPlusAbundance(void);
+  void OutputFiles(void);
+
+};
+#endif
