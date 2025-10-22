@@ -164,41 +164,77 @@ mean(round(t(ca)/opt_vpa$N_mat,digits = 4)[6,]) #0.354 is the average exploitati
 
 #Simple VPA vs Gulland Approach comparison plots----
 #Total Abundance
-plot(years,rowSums(N_array[,,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,35000),ylab="",las=2,xaxt="n")
-  mtext(text = "Total Abund. (x1,000)",side = 2,line = 4.5)
-  points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000,type="b",pch=21,col="red",bg="pink")
-  axis(1)
-legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+jpeg(filename = paste0(out_path,"VPA_abund_compare.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,5,2,2))
+  plot(years,rowSums(N_array[,,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,35000),ylab="",las=2,xaxt="n")
+    mtext(text = "Total Abund. (x1,000)",side = 2,line = 3.75)
+    points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000,type="b",pch=21,col="red",bg="pink")
+    axis(1)
+  legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+dev.off()
 
-plot(years,rowSums(N_array[,,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,5000),ylab="",las=2,xaxt="n",xlim=c(2010,2025))
-  mtext(text = "Total Abund. (x1,000)",side = 2,line = 4.5)
-  points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000,type="b",pch=21,col="red",bg="pink")
-  axis(1)
-legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+jpeg(filename = paste0(out_path,"VPA_abund.jpeg"),width = 7,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,6,2,2))
+  plot(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000, type = "b", pch = 21, col = "red", bg = "pink",ylim=c(0,35000),ylab="",las=2,xaxt="n",cex=1.25,lwd=2,
+    xlab="Year",cex.axis=1.25,cex.lab=1.25) 
+    mtext(text = "Total Abund. (x1,000)",side = 2,line = 4.5,cex=1.25)
+   # points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000,type="b",pch=21,col="red",bg="pink")
+    axis(1,cex.axis=1.25)
+  #legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+dev.off()
+
+
+#Truncated x-axis
+# plot(years,rowSums(N_array[,,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,5000),ylab="",las=2,xaxt="n",xlim=c(2010,2025))
+#   mtext(text = "Total Abund. (x1,000)",side = 2,line = 4.5)
+#   points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000,type="b",pch=21,col="red",bg="pink")
+#   axis(1)
+# legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
 
 #Age3+ Abundance
-plot(years,rowSums(N_array[,3:6,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,8000),ylab="Abund. 3+ (x1,000)",main="VPA Est. Age3+ YEP",las=2,xaxt="n")
-  axis(1)
-  points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
-legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+jpeg(filename = paste0(out_path,"VPA_age3_abund_compare.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,4.5,2,2))
+  plot(years,rowSums(N_array[,3:6,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,8000),ylab="Abund. 3+ (x1,000)",las=2,xaxt="n")
+    axis(1)
+    points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
+  legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+dev.off()
 
-plot(years,rowSums(N_array[,3:6,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,2000),ylab="Abund. 3+ (x1,000)",main="VPA Est. Age3+ YEP",las=2,xaxt="n",xlim=c(2010,2025))
-  axis(1)
-  points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
-legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+
+jpeg(filename = paste0(out_path,"VPA_age3_abund.jpeg"),width = 7,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,6,2,2))
+  plot(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000, type = "b", pch = 21, col = "red", bg = "pink",ylim=c(0,8000),ylab="",las=2,xaxt="n",cex=1.25,lwd=2,
+    xlab="Year",cex.axis=1.25,cex.lab=1.25) 
+    mtext(text = "Abund. Age3+ (x1,000)",side = 2,line = 4.5,cex=1.25)
+   # points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000,type="b",pch=21,col="red",bg="pink")
+    axis(1,cex.axis=1.25)
+  #legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+dev.off()
+
+
+
+#Truncated x axis
+# plot(years,rowSums(N_array[,3:6,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,2000),ylab="Abund. 3+ (x1,000)",main="VPA Est. Age3+ YEP",las=2,xaxt="n",xlim=c(2010,2025))
+#   axis(1)
+#   points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
+# legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
 
 #Age 1 Abundance
-plot(years,N_array[,1,"0.35"]/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,30000),ylab="",main="VPA Est. Age1 YEP",las=2,xaxt="n")
-  points(as.numeric(colnames(opt_vpa$N_mat)),opt_vpa$N_mat[1,]/1000,type="b",pch=21,col="red",bg="pink")
-  axis(1)
-  mtext(text = "Abund. Age1 (x1,000)",side = 2,line = 4.5)
-legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+jpeg(filename = paste0(out_path,"VPA_age1_abund_compare.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,5,2,2))
+  plot(years,N_array[,1,"0.35"]/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,30000),ylab="",las=2,xaxt="n")
+    points(as.numeric(colnames(opt_vpa$N_mat)),opt_vpa$N_mat[1,]/1000,type="b",pch=21,col="red",bg="pink")
+    axis(1)
+    mtext(text = "Abund. Age1 (x1,000)",side = 2,line = 3.75)
+  legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+dev.off()
 
-plot(years,N_array[,1,"0.35"]/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,2500),ylab="",main="VPA Est. Age1 YEP",las=2,xaxt="n",xlim=c(2010,2025))
-  points(as.numeric(colnames(opt_vpa$N_mat)),opt_vpa$N_mat[1,]/1000,type="b",pch=21,col="red",bg="pink")
-  axis(1)
-  mtext(text = "Abund. Age1 (x1,000)",side = 2,line = 4.5)
-legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
+#Truncated x-axis
+# plot(years,N_array[,1,"0.35"]/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,2500),ylab="",main="VPA Est. Age1 YEP",las=2,xaxt="n",xlim=c(2010,2025))
+#   points(as.numeric(colnames(opt_vpa$N_mat)),opt_vpa$N_mat[1,]/1000,type="b",pch=21,col="red",bg="pink")
+#   axis(1)
+#   mtext(text = "Abund. Age1 (x1,000)",side = 2,line = 4.5)
+# legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg=c("lightblue","pink"),col=c("steelblue","red"),lty=1)
 
 #Plot Age5/6 F
 # plot(NA,NA, type = "n", pch = 21, col = "red", bg = "pink",xlim=c(min(years),max(years)),ylim=c(0,2),ylab="Z",main="Age 5 and 6",las=2,xaxt="n")
@@ -210,12 +246,15 @@ legend("topright",legend = c("Simple Mod","Gulland Approach"),pch=c(21,21),pt.bg
 
 #Mortality Plots----
 #Plot as a barplot instaed
-par(mfcol=c(3,2))
-for(i in 1:6){
-  x<-barplot(rbind(M[i],opt_vpa$F_mat[i,]),col=c("darkgrey","pink"),xaxt="n",las=2,ylim=c(0,2),ylab="Z")
-    axis(1,at = x[years%in%seq(1990,2020,5)],labels = years[years%in%seq(1990,2020,5)])
-    legend("topright",legend = c("F","M"),fill=c("pink","darkgrey"),title = paste0("Age ",i))
-  }
+
+jpeg(filename = paste0(out_path,"VPA_mort_by_age.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mfcol=c(3,2))
+  for(i in 1:6){
+    x<-barplot(rbind(M[i],opt_vpa$F_mat[i,]),col=c("darkgrey","pink"),xaxt="n",las=2,ylim=c(0,2),ylab="Z")
+      axis(1,at = x[years%in%seq(1990,2020,5)],labels = years[years%in%seq(1990,2020,5)])
+      legend("topright",legend = c("F","M"),fill=c("pink","darkgrey"),title = paste0("Age ",i))
+    }
+dev.off()
 
 #Calculate F for simple VPA - double check this....
 #C/N = U = F/(F+M)
@@ -224,61 +263,71 @@ simp_Ut<-t(ca/N_array[,,"0.35"])
 M_mat<-matrix(M,nrow = dim(simp_Ut)[1],ncol = dim(simp_Ut)[2])
 simp_F<-(simp_Ut*M_mat)/(1-simp_Ut)
 
-par(mfcol=c(3,2))
-for(i in 1:6){
-  x<-barplot(rbind(M[i],simp_F[i,]),col=c("darkgrey","pink"),xaxt="n",las=2,ylim=c(0,2),ylab="Z")
-    axis(1,at = x[years%in%seq(1990,2020,5)],labels = years[years%in%seq(1990,2020,5)])
-    legend("topright",legend = c("F","M"),fill=c("pink","darkgrey"),title = paste0("Age ",i))
-  }
+jpeg(filename = paste0(out_path,"VPA_mort_by_age_simpmodel.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mfcol=c(3,2))
+  for(i in 1:6){
+    x<-barplot(rbind(M[i],simp_F[i,]),col=c("darkgrey","pink"),xaxt="n",las=2,ylim=c(0,2),ylab="Z")
+      axis(1,at = x[years%in%seq(1990,2020,5)],labels = years[years%in%seq(1990,2020,5)])
+      legend("topright",legend = c("F","M"),fill=c("pink","darkgrey"),title = paste0("Age ",i))
+    }
+dev.off()
 
 #Exploitation plots----
 #Exploitation rate by age
-colz<-c("#fde725","#5ec962","#21918c","#3b528b","#d093e0ff","#440154")
-gulland_Ut<-t(ca)/opt_vpa$N_mat
-plot(0,0,type = "n",xlim = summary(as.numeric(colnames(gulland_Ut)))[c("Min.","Max.")],ylim=c(0,1),las=2,xaxt="n",ylab="Exploitation Rate",xlab="Year")
-  axis(1)
-  for(i in 1:nrow(gulland_Ut)){
-    lines(as.numeric(colnames(gulland_Ut)), gulland_Ut[i,],lwd=2,col=colz[i])
-    points(as.numeric(colnames(gulland_Ut)), gulland_Ut[i,],pch=21,col="darkgrey",bg=colz[i])
-    }
-legend("topright",legend=paste0("age ",seq(1,6,1)),pch=21,col="darkgrey",pt.bg=colz,pt.cex=2)
 
-colz<-c("#fde725","#5ec962","#21918c","#3b528b","#d093e0ff","#440154")
-par(mfcol=c(1,1))
-plot(0,0,type = "n",xlim = summary(as.numeric(colnames(simp_Ut)))[c("Min.","Max.")],ylim=c(0,1),las=2,xaxt="n",ylab="Exploitation Rate",xlab="Year")
-  axis(1)
-  for(i in 1:nrow(simp_Ut)){
-    lines(as.numeric(colnames(simp_Ut)), simp_Ut[i,],lwd=2,col=colz[i])
-    points(as.numeric(colnames(simp_Ut)), simp_Ut[i,],pch=21,col="darkgrey",bg=colz[i])
-    }
-legend("topright",legend=paste0("age ",seq(1,6,1)),pch=21,col="darkgrey",pt.bg=colz,pt.cex=2)
+jpeg(filename = paste0(out_path,"VPA_exploit_by_age.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  colz<-c("#fde725","#5ec962","#21918c","#3b528b","#d093e0ff","#440154")
+  gulland_Ut<-t(ca)/opt_vpa$N_mat
+  par(mfcol=c(1,1))
+  plot(0,0,type = "n",xlim = summary(as.numeric(colnames(gulland_Ut)))[c("Min.","Max.")],ylim=c(0,1),las=2,xaxt="n",ylab="Exploitation Rate",xlab="Year")
+    axis(1)
+    for(i in 1:nrow(gulland_Ut)){
+      lines(as.numeric(colnames(gulland_Ut)), gulland_Ut[i,],lwd=2,col=colz[i])
+      points(as.numeric(colnames(gulland_Ut)), gulland_Ut[i,],pch=21,col="darkgrey",bg=colz[i])
+      }
+  legend("topright",legend=paste0("age ",seq(1,6,1)),pch=21,col="darkgrey",pt.bg=colz,pt.cex=2)
+dev.off()
 
+jpeg(filename = paste0(out_path,"VPA_exploit_by_age_simpmodel.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  colz<-c("#fde725","#5ec962","#21918c","#3b528b","#d093e0ff","#440154")
+  par(mfcol=c(1,1))
+  plot(0,0,type = "n",xlim = summary(as.numeric(colnames(simp_Ut)))[c("Min.","Max.")],ylim=c(0,1),las=2,xaxt="n",ylab="Exploitation Rate",xlab="Year")
+    axis(1)
+    for(i in 1:nrow(simp_Ut)){
+      lines(as.numeric(colnames(simp_Ut)), simp_Ut[i,],lwd=2,col=colz[i])
+      points(as.numeric(colnames(simp_Ut)), simp_Ut[i,],pch=21,col="darkgrey",bg=colz[i])
+      }
+  legend("topright",legend=paste0("age ",seq(1,6,1)),pch=21,col="darkgrey",pt.bg=colz,pt.cex=2)
+dev.off()
 
 #Abundance estimates vs survey CPUE----
 #How does the age3+ plot compare to the nets CPUE?
 #Age3+ Abundance
-par(mar=c(4.5,6,2,6))
-plot(years,rowSums(N_array[,3:6,"0.35"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,7000),ylab="Abund. 3+ (x1,000)",main="VPA Est. Age3+ YEP",las=2,xaxt="n")
-  points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
-  axis(1)
-  
-  par(new=TRUE)
-  plot(years,rowSums(GN_mat[-nrow(GN_mat),3:6]), type = "b", pch = 22, col = "black", bg = "darkgrey",ylim=c(0,150),ylab="",main="",yaxt="n",xaxt="n")
-  mtext("Nearshore GN CPUE (#Age3+/Net)",side = 4,line = 3.5)
-  axis(4,las=2)
-legend("topright",legend = c("Simple Mod","Gulland Approach","GN CPUE"),pch=c(21,21,22),pt.bg=c("lightblue","pink","darkgrey"),col=c("steelblue","red","black"),lty=1)
+jpeg(filename = paste0(out_path,"VPA_abund_vs_GNCPUE.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,6,2,6))
+  plot(years,rowSums(N_array[,3:6,"0.28"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,7000),ylab="Abund. 3+ (x1,000)",las=2,xaxt="n")
+    points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
+    axis(1)
+    
+    par(new=TRUE)
+    plot(years,rowSums(GN_mat[-nrow(GN_mat),3:6]), type = "b", pch = 22, col = "black", bg = "darkgrey",ylim=c(0,150),ylab="",main="",yaxt="n",xaxt="n")
+    mtext("Nearshore GN CPUE (#Age3+/Net)",side = 4,line = 3.5)
+    axis(4,las=2)
+  legend("topright",legend = c("Simple Mod","Gulland Approach","GN CPUE"),pch=c(21,21,22),pt.bg=c("lightblue","pink","darkgrey"),col=c("steelblue","red","black"),lty=1)
+dev.off()
 
-
-par(mar=c(4.5,6,2,6))
-plot(years,rowSums(N_array[,3:6,"0.42"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,7000),ylab="Abund. 3+ (x1,000)",main="VPA Est. Age3+ YEP",las=2,xaxt="n")
-  points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
-  axis(1)
-  
-  par(new=TRUE)
-  plot(years[years>=1999],rowSums(offGN_mat[-nrow(offGN_mat),3:6]), type = "b", pch = 22, col = "black", bg = "darkgrey",xlim=c(min(years),max(years)),ylim=c(0,100),ylab="",main="",yaxt="n",xaxt="n")
-  mtext("Offshore GN CPUE (#Age3+/Net)",side = 4,line = 3.5)
-  axis(4,las=2)
-legend("topright",legend = c("Simple Mod","Gulland Approach","GN CPUE"),pch=c(21,21,22),pt.bg=c("lightblue","pink","darkgrey"),col=c("steelblue","red","black"),lty=1)
+jpeg(filename = paste0(out_path,"VPA_abund_vs_OffGNCPUE.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,6,2,6))
+  plot(years,rowSums(N_array[,3:6,"0.28"])/1000, type = "b", pch = 21, col = "steelblue", bg = "lightblue",ylim=c(0,7000),ylab="Abund. 3+ (x1,000)",main="VPA Est. Age3+ YEP",las=2,xaxt="n")
+    points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat[3:6,])/1000,type="b",pch=21,col="red",bg="pink")
+    axis(1)
+    
+    par(new=TRUE)
+    plot(years[years>=1999],rowSums(offGN_mat[-nrow(offGN_mat),3:6]), type = "b", pch = 22, col = "black", bg = "darkgrey",xlim=c(min(years),max(years)),ylim=c(0,100),ylab="",main="",yaxt="n",xaxt="n")
+    mtext("Offshore GN CPUE (#Age3+/Net)",side = 4,line = 3.5)
+    axis(4,las=2)
+  legend("topright",legend = c("Simple Mod","Gulland Approach","GN CPUE"),pch=c(21,21,22),pt.bg=c("lightblue","pink","darkgrey"),col=c("steelblue","red","black"),lty=1)
+dev.off()
 
 #Exploitation of SSB----
 #Let's look at Ut of SSB
@@ -313,44 +362,52 @@ plot(as.numeric(names(U_ssb)),U_ssb,type="b",lwd=1.5,pch=21,col="black",bg="dark
 axis(1)
 
 #Plot SSB and U together.
-par(mar=c(4.5,5,2,5))
-  plot(as.numeric(colnames(SSB_mat)),apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,type="b",lwd=1.5,pch=21,col="black",bg="darkgrey",las=2,xaxt="n",
-      xlab="Year",ylab="")
-  mtext(text = "SSB (x1,000 lbs)",side = 2,line = 3.5)
-  axis(1)
-  par(new=TRUE)
-  plot(as.numeric(names(U_ssb)),U_ssb,type="b",lwd=1.5,pch=22,col="red",bg="pink",las=2,xaxt="n",
-      xlab="Year",ylab="",yaxt="n")
-  axis(4,las=2)
-  mtext(text = "Ut of SSB (Yield/SSB)",side = 4,line = 3.5)
-legend("topright",legend=c("SSB","Ut of SSB"),col=c("black","red"),pch=c(21,22),pt.bg=c("darkgrey","pink"))
+jpeg(filename = paste0(out_path,"VPA_SSB_vs_SSBExploit.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,5,2,5))
+    plot(as.numeric(colnames(SSB_mat)),apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,type="b",lwd=1.5,pch=21,col="black",bg="darkgrey",las=2,xaxt="n",
+        xlab="Year",ylab="")
+    mtext(text = "SSB (x1,000 lbs)",side = 2,line = 3.5)
+    axis(1)
+    par(new=TRUE)
+    plot(as.numeric(names(U_ssb)),U_ssb,type="b",lwd=1.5,pch=22,col="red",bg="pink",las=2,xaxt="n",
+        xlab="Year",ylab="",yaxt="n")
+    axis(4,las=2)
+    mtext(text = "Ut of SSB (Yield/SSB)",side = 4,line = 3.5)
+  legend("topright",legend=c("SSB","Ut of SSB"),col=c("black","red"),pch=c(21,22),pt.bg=c("darkgrey","pink"))
+dev.off()
 
 #Scatter Plot of SSB vs Ut of SSB
-par(mar=c(4.5,4,2,2))
-plot(apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,U_ssb,pch=21,col="black",bg="darkgrey",cex=1.5,xlab="SSB (x1,000 lbs)",ylab="Ut of SSB (Yield/SSB)",las=2,xaxt="n")
-axis(1)
+jpeg(filename = paste0(out_path,"VPA_SSB_vs_SSBExploit_Scatter.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,4,2,2))
+  plot(apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,U_ssb,pch=21,col="black",bg="darkgrey",cex=1.5,xlab="SSB (x1,000 lbs)",ylab="Ut of SSB (Yield/SSB)",las=2,xaxt="n")
+  axis(1)
+dev.off()
 
 #Plot SSB and total U together
-par(mar=c(4.5,5,2,5))
-  plot(as.numeric(colnames(SSB_mat)),apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,type="b",lwd=1.5,pch=21,col="black",bg="darkgrey",las=2,xaxt="n",
-      xlab="Year",ylab="")
-  mtext(text = "SSB (x1,000 lbs)",side = 2,line = 3.5)
-  axis(1)
-  par(new=TRUE)
+jpeg(filename = paste0(out_path,"VPA_SSB_vs_TotalExploit.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,5,2,5))
+    plot(as.numeric(colnames(SSB_mat)),apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,type="b",lwd=1.5,pch=21,col="black",bg="darkgrey",las=2,xaxt="n",
+        xlab="Year",ylab="")
+    mtext(text = "SSB (x1,000 lbs)",side = 2,line = 3.5)
+    axis(1)
+    par(new=TRUE)
 
-  Ut<-t(apply(X = catch_mat,MARGIN = 1,FUN = sum))/apply(X = opt_vpa$N_mat,MARGIN = 2,FUN = sum)
+    Ut<-t(apply(X = catch_mat,MARGIN = 1,FUN = sum))/apply(X = opt_vpa$N_mat,MARGIN = 2,FUN = sum)
 
-  plot(as.numeric(colnames(Ut)),Ut,type="b",lwd=1.5,pch=22,col="red",bg="pink",las=2,xaxt="n",
-      xlab="Year",ylab="",yaxt="n")
-  axis(4,las=2)
-  mtext(text = "Ut (Catch/N)",side = 4,line = 3.5)
-legend("topright",legend=c("SSB","Ut"),col=c("black","red"),pch=c(21,22),pt.bg=c("darkgrey","pink"))
+    plot(as.numeric(colnames(Ut)),Ut,type="b",lwd=1.5,pch=22,col="red",bg="pink",las=2,xaxt="n",
+        xlab="Year",ylab="",yaxt="n")
+    axis(4,las=2)
+    mtext(text = "Ut (Catch/N)",side = 4,line = 3.5)
+  legend("topright",legend=c("SSB","Ut"),col=c("black","red"),pch=c(21,22),pt.bg=c("darkgrey","pink"))
+dev.off()
+
 
 #Scatter Plot of SSB vs Ut of SSB
-par(mar=c(4.5,4,2,2))
-plot(apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,Ut,pch=21,col="black",bg="darkgrey",cex=1.5,xlab="SSB (x1,000 lbs)",ylab="Ut (Catch/N)",las=2,xaxt="n")
-axis(1)
-
+jpeg(filename = paste0(out_path,"VPA_SSB_vs_TotalExploit_Scatter.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,4,2,2))
+  plot(apply(SSB_mat,MARGIN = 2,FUN = sum)/1000,Ut,pch=21,col="black",bg="darkgrey",cex=1.5,xlab="SSB (x1,000 lbs)",ylab="Ut (Catch/N)",las=2,xaxt="n")
+  axis(1)
+dev.off()
 
 #Gulland VPA sensitivity----
 #######################################
@@ -374,42 +431,47 @@ for(z in 1:nrow(F_termz_abund)){
 
 #Plot abundance
 colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
-plot(years,F_termz_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=1,col=colz[1])
-  for(i in 2:nrow(F_termz_abund)){
-    lines(years,F_termz_abund[i,]/1000,lwd=1,col=colz[i])
-    }
-  axis(1)
-legend("topright",legend=round(as.numeric(rownames(F_termz_abund)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
-  
-colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
-plot(years,F_termz_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=1,col=colz[1],xlim=c(2010,2025),ylim=c(0,500))
-  for(i in 2:nrow(F_termz_abund)){
-    lines(years,F_termz_abund[i,]/1000,lwd=1,col=colz[i])
-    }
-  axis(1)
-legend("topright",legend=round(as.numeric(rownames(F_termz_abund)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
+jpeg(filename = paste0(out_path,"VPA_sensitivity_FTerm.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  plot(years,F_termz_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=1,col=colz[1])
+    for(i in 2:nrow(F_termz_abund)){
+      lines(years,F_termz_abund[i,]/1000,lwd=1,col=colz[i])
+      }
+    axis(1)
+  legend("topright",legend=round(as.numeric(rownames(F_termz_abund)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
+dev.off()
+
+# colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
+# plot(years,F_termz_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=1,col=colz[1],xlim=c(2010,2025),ylim=c(0,500))
+#   for(i in 2:nrow(F_termz_abund)){
+#     lines(years,F_termz_abund[i,]/1000,lwd=1,col=colz[i])
+#     }
+#   axis(1)
+# legend("topright",legend=round(as.numeric(rownames(F_termz_abund)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
 
 #Plot Age 6 F
 #Plot abundance
 colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
-par(mar=c(4.5,6,2,2))
-plot(years,F_termz_Fval[1,],type="l",las=2,xaxt="n",ylab="",lwd=1,col=colz[1],ylim=c(0,2.5))
-  for(i in 2:nrow(F_termz_Fval)){
-    lines(years,F_termz_Fval[i,],lwd=1,col=colz[i])
-    }
-  axis(1)
-  mtext(side = 2,text = "Age6 F",line = 4.5)
-legend("topright",legend=round(as.numeric(rownames(F_termz_Fval)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
 
-colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")  
-par(mar=c(4.5,6,2,2))
-plot(years,F_termz_Fval[1,],type="l",las=2,xaxt="n",ylab="",lwd=1,col=colz[1],ylim=c(0,2.5),xlim=c(2010,2025))
-  for(i in 2:nrow(F_termz_Fval)){
-    lines(years,F_termz_Fval[i,],lwd=1,col=colz[i])
-    }
-  axis(1)
-  mtext(side = 2,text = "Age6 F",line = 4.5)
-legend("topright",legend=round(as.numeric(rownames(F_termz_Fval)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
+jpeg(filename = paste0(out_path,"VPA_sensitivity_Age6F_Fterm.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  par(mar=c(4.5,6,2,2))
+  plot(years,F_termz_Fval[1,],type="l",las=2,xaxt="n",ylab="",lwd=1,col=colz[1],ylim=c(0,2.5))
+    for(i in 2:nrow(F_termz_Fval)){
+      lines(years,F_termz_Fval[i,],lwd=1,col=colz[i])
+      }
+    axis(1)
+    mtext(side = 2,text = "Age6 F",line = 4.5)
+  legend("topright",legend=round(as.numeric(rownames(F_termz_Fval)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
+dev.off()
+
+# colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")  
+# par(mar=c(4.5,6,2,2))
+# plot(years,F_termz_Fval[1,],type="l",las=2,xaxt="n",ylab="",lwd=1,col=colz[1],ylim=c(0,2.5),xlim=c(2010,2025))
+#   for(i in 2:nrow(F_termz_Fval)){
+#     lines(years,F_termz_Fval[i,],lwd=1,col=colz[i])
+#     }
+#   axis(1)
+#   mtext(side = 2,text = "Age6 F",line = 4.5)
+# legend("topright",legend=round(as.numeric(rownames(F_termz_Fval)),digits = 3),col=colz,lwd=2,title = "Values of F_term")
 
 #VPA is not sensitive to value of F_term as long as F_term doesn't approach 0.
 #Values of F seem to converge in after about 3 years regardless of starting point
@@ -438,38 +500,43 @@ for(z in 1:nrow(retro_abund)){
   }
 
 #Plot abundance
-colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
-plot(years,retro_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=2,col=colz[1])
-  for(i in 2:nrow(retro_abund)){
-    lines(years,retro_abund[i,]/1000,lwd=2,col=colz[i])
-    }
-  axis(1)
-legend("topright",legend=rownames(retro_abund),col=colz,lwd=2,title = "Years removed from analysis")
+jpeg(filename = paste0(out_path,"VPA_retro_abundance.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
+  plot(years,retro_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=2,col=colz[1])
+    for(i in 2:nrow(retro_abund)){
+      lines(years,retro_abund[i,]/1000,lwd=2,col=colz[i])
+      }
+    axis(1)
+  legend("topright",legend=rownames(retro_abund),col=colz,lwd=2,title = "Years removed from analysis")
+dev.off()
 
-colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
-plot(years,retro_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=2,col=colz[1],xlim=c(2010,2025),ylim=c(0,500))
-  for(i in 2:nrow(retro_abund)){
-    lines(years,retro_abund[i,]/1000,lwd=2,col=colz[i])
-    }
-  axis(1)
-legend("topright",legend=rownames(retro_abund),col=colz,lwd=2,title = "Years removed from analysis")
+# colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
+# plot(years,retro_abund[1,]/1000,type="l",las=2,xaxt="n",ylab="Age 3+ Abund. (x1,000)",lwd=2,col=colz[1],xlim=c(2010,2025),ylim=c(0,500))
+#   for(i in 2:nrow(retro_abund)){
+#     lines(years,retro_abund[i,]/1000,lwd=2,col=colz[i])
+#     }
+#   axis(1)
+# legend("topright",legend=rownames(retro_abund),col=colz,lwd=2,title = "Years removed from analysis")
 
 #Plot Age6 F values
-colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
-plot(years,retro_F[1,],type="l",las=2,xaxt="n",ylab="Age6 F",lwd=2,col=colz[1])
-  for(i in 2:nrow(retro_F)){
-    lines(years,retro_F[i,],lwd=2,col=colz[i])
-    }
-  axis(1)
-legend("topright",legend=rownames(retro_F),col=colz,lwd=2,title = "Years removed from analysis")
+jpeg(filename = paste0(out_path,"VPA_retro_Age6F.jpeg"),width = 9,height = 7,units = "in",res = 250)
+  colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
+  plot(years,retro_F[1,],type="l",las=2,xaxt="n",ylab="Age6 F",lwd=2,col=colz[1])
+    for(i in 2:nrow(retro_F)){
+      lines(years,retro_F[i,],lwd=2,col=colz[i])
+      }
+    axis(1)
+  legend("topright",legend=rownames(retro_F),col=colz,lwd=2,title = "Years removed from analysis")
+dev.off()
 
-colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
-plot(years,retro_F[1,],type="l",las=2,xaxt="n",ylab="Age6 F",lwd=2,col=colz[1],xlim=c(2010,2025))
-  for(i in 2:nrow(retro_F)){
-    lines(years,retro_F[i,],lwd=2,col=colz[i])
-    }
-  axis(1)
-legend("topright",legend=rownames(retro_F),col=colz,lwd=2,title = "Years removed from analysis")
+
+# colz<-c("#f72585", "#b5179e", "#7209b7", "#3a0ca3", "#4361ee", "#4cc9f0")
+# plot(years,retro_F[1,],type="l",las=2,xaxt="n",ylab="Age6 F",lwd=2,col=colz[1],xlim=c(2010,2025))
+#   for(i in 2:nrow(retro_F)){
+#     lines(years,retro_F[i,],lwd=2,col=colz[i])
+#     }
+#   axis(1)
+# legend("topright",legend=rownames(retro_F),col=colz,lwd=2,title = "Years removed from analysis")
 
 #Save final output----
 #Write the VPA abundance as a .rds
