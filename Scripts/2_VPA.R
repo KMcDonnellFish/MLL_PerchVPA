@@ -548,3 +548,24 @@ opt_val<-nlminb(start = list(F_term = 2), #If initital value is <0.4, optimizati
         control = list(trace = 1, eval.max = 1000, iter.max = 1000),lower = 0.1,upper = Inf)
 opt_vpa<-Gulland_FUN(catch = t(ca),F_term = opt_val$par,M = M,opt = FALSE)
 saveRDS(object = opt_vpa,file = paste0(dat_path,"opt_vpa.rds"))
+
+
+#Run the vpa with M being a constant 0.3 to compare with SCAA model, just for fun
+
+opt_val2<-nlminb(start = list(F_term = 2), #If initital value is <0.4, optimization will push terminal F to 0. 
+        objective = Gulland_FUN, 
+        catch = t(ca), 
+        opt = TRUE,
+        M = rep(0.3,6),
+        control = list(trace = 1, eval.max = 1000, iter.max = 1000),lower = 0.1,upper = Inf)
+opt_vpa2<-Gulland_FUN(catch = t(ca),F_term = opt_val2$par,M = rep(0.3,6),opt = FALSE)
+
+par(mar=c(4.5,6,2,2))
+plot(as.numeric(colnames(opt_vpa2$N_mat)),colSums(opt_vpa2$N_mat[3:6,])/1000, type = "b", pch = 21, col = "red", bg = "pink",ylim=c(0,5000),ylab="",las=2,xaxt="n",cex=1.25,lwd=2,
+  xlab="Year",cex.axis=1.25,cex.lab=1.25) 
+  mtext(text = "Total Abund. Age3+ (x1,000)",side = 2,line = 4.5,cex=1.25)
+  # points(as.numeric(colnames(opt_vpa$N_mat)),colSums(opt_vpa$N_mat)/1000,type="b",pch=21,col="red",bg="pink")
+axis(1,cex.axis=1.25)
+#It rescales down but not to the levels seen in the SCAA model.
+
+
